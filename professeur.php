@@ -15,10 +15,25 @@ class Proffesseur extends Etudiant implements InterfaceProffesseur
     private $voiture = false;
     public function __construct($nom, $prenom, $matricule, $dateNaissance, $voiture, $salaire, $specialite)
     {
+        $regexsp = "/^[a-zA-Z]{2,255}$/";
+        $regexsalaire = "/^[0-9]{7}$/";
         parent::__construct($nom, $prenom, $matricule, $dateNaissance);
-        $this->salaire = $salaire;
-        $this->specialite = $specialite;
-        $this->voiture = $voiture;
+
+        if (!preg_match($regexsalaire, $salaire)) {
+            throw new Exception("Le salaire est invalide");
+        } else {
+            $this->salaire = $salaire;
+        }
+        if (!preg_match($regexsp, $salaire)) {
+            throw new Exception("Le specialite est invalide");
+        } else {
+            $this->specialite = $specialite;
+        }
+        if (!is_bool($voiture)) {
+            throw new Exception("La voiture est invalide");
+        } else {
+            $this->voiture = $voiture;
+        }
     }
     public function sePresenter()
     {
